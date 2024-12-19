@@ -16,9 +16,14 @@ def get_extensions() -> list[str]:
     return extensions.stdout.splitlines()
 
 
-def get_risk_for_extension(extension: str) -> dict:
-    url = "https://app.extensiontotal.com/api/getExtensionRisk"
-    headers = {"Content-Type": "application/json", "Cookie": "SameSite=None"}
+def get_risk_for_extension(extension: str):
+    url = "https://app.extensiontotal.com:443/api/getExtensionRisk"
+    headers = {
+        "Content-Type": "application/json",
+        "X-API-Key": "",
+        "Cookie": "SameSite=None",
+        "X-Origin": "Extension",
+    }
     payload = {"q": extension}
     response = requests.post(url, json=payload, headers=headers, timeout=5)
     response.raise_for_status()
